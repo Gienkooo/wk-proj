@@ -33,8 +33,8 @@ class RecurrentCvTModel(nn.Module):
 
         self.stage4_tok = ConvTokenizer(dim3, dim4, kernel_size=3, stride=2)
         
-        # Recurrent cell with depth blocks
-        self.cell = RecurrentCvTCell(dim4, heads4, mlp_ratio, dropout, depth=max(1, depth))
+        # Recurrent cell with exactly 1 shared block
+        self.cell = RecurrentCvTCell(dim4, heads4, mlp_ratio, dropout, depth=1)
 
         self.pos4 = nn.Parameter(torch.zeros(1, dim4, 8, 8))
         nn.init.trunc_normal_(self.pos4, std=0.02)
